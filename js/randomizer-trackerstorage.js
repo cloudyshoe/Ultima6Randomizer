@@ -21,15 +21,15 @@ function saveToLocalStorage() {
 function restoreFromLocalStorage() {
 	if (localStorage.getItem(KEY_PREFIX)) {
 		if (confirm('Do you want to restore the saved tracker state?\nThis will overwrite the existing state.') == true) {
-			var localEntries = Object.entries(localStorage);
+			let localEntries = Object.entries(localStorage);
 			for ([key,value] of localEntries) {
 				if (key.startsWith(KEY_PREFIX)) {
 					localStorage.removeItem(key);
 				}
 			}
 
-			var localJSON = JSON.parse(localStorage.getItem(KEY_PREFIX));
-			var localEntries = Object.entries(localJSON[KEY_PREFIX]);
+			let localJSON = JSON.parse(localStorage.getItem(KEY_PREFIX));
+			let localEntries = Object.entries(localJSON[KEY_PREFIX]);
 			for ([key,value] of localEntries) {
 				localStorage.setItem(key, value);
 			}

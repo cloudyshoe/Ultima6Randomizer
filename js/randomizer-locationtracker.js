@@ -20,8 +20,12 @@ function pageInit() {
 
 	const dialogLinks = document.querySelectorAll('[data-dialog-target]');
 	for (link of dialogLinks) {
-		const dialog = document.getElementById(link.dataset.dialogTarget);
-		link.addEventListener('click', (e) => dialog.showModal()); 
+		console.log(link.dataset.dialogTarget);
+		if (link.dataset.dialogTarget) {
+			console.log(link.dataset.dialogTarget);
+			const dialog = document.getElementById(link.dataset.dialogTarget);
+			link.addEventListener('click', (e) => dialog.showModal()); 
+		}
 		const closestDialog = link.closest("dialog");
 		if (closestDialog) {
 			link.addEventListener('click', (e) => closestDialog.close());

@@ -46,6 +46,11 @@ textarea {
 	font-size: 2em;
 }
 
+#menu_dialog li {
+	cursor: pointer;
+	list-style: none;
+}
+
 #notes_area {
 	width: 100%;
 	min-width: 100%;
@@ -176,6 +181,10 @@ details[open] summary h3::after {
 
 summary {
 	text-align: center;
+	cursor: pointer;
+}
+
+h3[data-dialog-target] {
 	cursor: pointer;
 }
 
