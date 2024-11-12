@@ -1,259 +1,410 @@
-const TEXT_COLOR_OFF = "rgb(224, 192, 192)";
-const TEXT_COLOR_ON = "rgb(51, 51, 51)";
-const KEY_PREFIX = "locationtracker_"
-const ITEMS_LIST = [
-	"bookboardgames",
-	"bookoz",
-	"brokenlens",
-	"gargishtext",
-	"gargoylelens",
-	"guildbelt",
-	"map",
-	"sherry",
-	"spellbook",
-	"dispelfield",
-	"unlock",
-	"runecompassion",
-	"runehonor",
-	"runehonesty",
-	"runehumility",
-	"runejustice",
-	"runesacrifice",
-	"runespirituality",
-	"runevalor"
-];
-const LOCATIONS_LIST = [
-	"overworld",
-	"virtuetown",
-	"nonvirtuetown",
-	"castles",
-	"dialogrewards",
-	"treasuremap",
-	"caves",
-	"tombs",
-	"dungeons",
-	"shrines",
-	"gargoylecity",
-	"joinablepartymembers"
-];
-const TRACKERS_LIST = [
-	"locationtype",
-	"progressionitem",
-	"check",
-	"hint"
-];
+const KEY_PREFIX = 'locationtracker_';
+const STREAMVIEW_PREFIX = 'streamview_';
 
-const SPOTS_LIST = document.getElementsByClassName("spots");
-
-const CHECKBOX_LIST = document.querySelectorAll('input[type=checkbox]');
+pageInit();
+window.addEventListener('beforeunload', clearStreamView);
 
 function pageInit() {
-	for (var i = 0; i < CHECKBOX_LIST.length; i++) {
-		CHECKBOX_LIST[i].addEventListener('click', saveValueCheckbox, false);
-		if (typeof getValueCheckbox(CHECKBOX_LIST[i].id) != 'undefined') {
-			CHECKBOX_LIST[i].checked = getValueCheckbox(CHECKBOX_LIST[i].id);
-		} else {
-			CHECKBOX_LIST[i].checked = CHECKBOX_LIST[i].defaultChecked;
-		}
-	}
 
-	for (item in ITEMS_LIST) {
-		setItemStatus(ITEMS_LIST[item]);
-		setItemStatusOnClick(ITEMS_LIST[item]);
-	}
+	clearStreamView();
+	initMoonstoneCounter();
+	initCheckboxLocalStorage();
+	initShowHideCheckboxes();
+	initLocationTypeCheckboxes();
+	initEnableAdvancedLocationCheckbox();
+	initProgressionItemCheckboxes();
+	initNotesArea();
+	initResetButton();
+	initSaveRestoreClearButtons();
+	initColorSchemeButtons();
 
-	for (loc in LOCATIONS_LIST) {
-		setLocationStatus(LOCATIONS_LIST[loc]);
-		setLocationStatusOnClick(LOCATIONS_LIST[loc]);
-	}
-
-	for (tracker in TRACKERS_LIST) {
-		toggleTracker(TRACKERS_LIST[tracker]);
-		toggleSetup(TRACKERS_LIST[tracker]);
-	}
-
-	for (var i = 0; i < SPOTS_LIST.length; i++) {
-		SPOTS_LIST[i].addEventListener('click', setCoordinates, false);
-		SPOTS_LIST[i].addEventListener('contextmenu', undoCoordinates, false);
-		if (getValue(SPOTS_LIST[i].id)) {
-			SPOTS_LIST[i].textContent = getValue(SPOTS_LIST[i].id);
-		} else {
-			SPOTS_LIST[i].textContent = '     Click to enter coordinates';
-		}
-	}
-
-	document.getElementById('reset').addEventListener('click', resetTracker, false);
-	document.getElementById('save').addEventListener('click', saveToLocalStorage, false);
-	document.getElementById('restore').addEventListener('click', restoreFromLocalStorage, false);
-	document.getElementById('clear').addEventListener('click', clearLocalStorage, false);
-	document.getElementById('toggle_local_storage').addEventListener('click', toggleStorageOptions, false);
-}
-
-window.addEventListener('load', pageInit);
-
-function setValueCheckbox(key, value) {
-	var setKey = KEY_PREFIX + key;
-	sessionStorage.setItem(setKey, value);
-}
-
-function getValueCheckbox(key, value) {
-	var getKey = KEY_PREFIX + key;
-	newValue = sessionStorage.getItem(getKey);
-	if (newValue == 'true') {
-		return true;
-	} else if (newValue == 'false') {
-		return false;
-	}
-}
-
-function saveValueCheckbox(e) {
-	var checkboxId = e.target.id;
-	var checkboxValue = e.target.checked;
-	setValueCheckbox(checkboxId, checkboxValue);
-}
-
-function setValue(key, value) {
-	var setKey = KEY_PREFIX + key;
-	sessionStorage.setItem(setKey, value);
-}
-
-function getValue(key, value) {
-	var getKey = KEY_PREFIX + key;
-	return sessionStorage.getItem(getKey);
-}
-
-function setItemStatusOnClick(item) {
-	itemId = 'tracker_item_' + item;
-	document.getElementById(itemId).addEventListener('click', setItemStatus.bind(null, item), false);
-}
-
-function setItemStatus(item) {
-	itemClass = 'tracker_requires_' + item;
-	itemElements = document.querySelectorAll('label.' + itemClass);
-
-	for (var label = 0; label < itemElements.length; label++) {
-		var requirements= itemElements[label].classList
-		var requirementsMet = 0;
-		for (var requiresItem = 0; requiresItem < requirements.length; requiresItem++) {
-			var requiresId = 'tracker_item_' + requirements[requiresItem].split('_')[2]
-			if (document.getElementById(requiresId).checked == true) {
-				requirementsMet += 1;
-			}
-		}
-		if (requirementsMet == itemElements[label].classList.length) {
-			itemElements[label].style.color = TEXT_COLOR_ON;
-		} else {
-			itemElements[label].style.color = TEXT_COLOR_OFF;
+	const dialogLinks = document.querySelectorAll('[data-dialog-target]');
+	for (link of dialogLinks) {
+		const dialog = document.getElementById(link.dataset.dialogTarget);
+		link.addEventListener('click', (e) => dialog.showModal()); 
+		const closestDialog = link.closest("dialog");
+		if (closestDialog) {
+			link.addEventListener('click', (e) => closestDialog.close());
 		}
 	}
 }
 
-function setLocationStatusOnClick(loc) {
-	locId = 'tracker_locations_' + loc;
-	document.getElementById(locId).addEventListener('click', setLocationStatus.bind(null, loc), false);
+/*
+ * Init Functions
+ *
+ * These run when page is loaded to add event listeners and set values from localStorage if they exist.
+*/
+
+function initCheckboxLocalStorage() {
+	const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+	for (checkbox of checkboxes) {
+		checkbox.addEventListener('click', setLocalCheckboxStatusOnClick);
+		const checkboxStatus = localCheckboxStatus(checkbox);
+		if (checkboxStatus) { checkbox.checked = checkboxStatus === 'true'; }
+	}
 }
 
-function setLocationStatus(loc) {
-	locationCheckbox = 'tracker_locations_' + loc
-	locationClass = 'location_' + loc;
-	itemClass = loc + '_item';
-	locationElements = document.querySelectorAll('div.' + locationClass);
-	itemElements = document.querySelectorAll('div.' + itemClass);
-
-	for (var item = 0; item < itemElements.length; item++) {
-		if (document.getElementById(locationCheckbox).checked == true) {
-			itemElements[item].style.display = "";
-		} else {
-			itemElements[item].style.display = "none";
-		}
-	}
-
-	for (var div = 0; div < locationElements.length; div++) {
-		var memberships= locationElements[div].classList
-		var membershipsMet = 0;
-		for (var includesLocation = 0; includesLocation < memberships.length; includesLocation++) {
-			var includesId = 'tracker_locations_' + memberships[includesLocation].split('_')[1]
-			if (document.getElementById(includesId).checked == false) {
-				membershipsMet += 1;
-			}
-		}
-		if (membershipsMet == memberships.length) {
-			locationElements[div].style.display = "none";
-		} else {
-			locationElements[div].style.display = "";
+function clearStreamView() {
+	// Clean up STREAMVIEW_PREFIX keys in localStorage on page load & unload so we don't end up with stale data.
+	const localKeys = Object.keys(localStorage)
+	for (key of localKeys) {
+		if (key.startsWith(STREAMVIEW_PREFIX)) {
+			localStorage.removeItem(key);
 		}
 	}
 }
 
-function toggleSetup(tracker) {
-	toggleId = tracker + '_tracker_toggle';
-	toggleElement = document.getElementById(toggleId);
-	toggleLabel = document.querySelector('[for=\"' + tracker + '_tracker_toggle\"] small');
-	toggleElement.addEventListener('click', toggleTracker.bind(null, tracker), false);
-	toggleLabel.style.cursor = 'pointer';
+function initMoonstoneCounter() {
+	document.getElementById('moonstonecount_inc').addEventListener('click', moonstoneCountInc);
+	document.getElementById('moonstonecount_dec').addEventListener('click', moonstoneCountDec);
+
+	const moonstoneCount = document.getElementById('tracker_item_moonstonecount');
+	const localMoonstoneCount = localStorage.getItem(KEY_PREFIX+'tracker_item_moonstonecount');
+
+	if (localMoonstoneCount) {
+		moonstoneCount.dataset.moonstoneCount = localMoonstoneCount;
+		moonstoneCount.textContent = localMoonstoneCount;
+		localStorage.setItem(STREAMVIEW_PREFIX+'tracker_item_moonstonecount', localMoonstoneCount);
+	}
 }
 
-function toggleTracker(tracker) {
-	content = document.getElementsByClassName(tracker + '_tracker');
-	showHide = document.getElementById(tracker + '_tracker_toggle');
-	showHideLabel = document.querySelector('[for=\"' + tracker + '_tracker_toggle\"] small');
+function initShowHideCheckboxes() {
+	const toggleCheckboxes = document.querySelectorAll('[data-toggles]');
+	for (checkbox of toggleCheckboxes) {
+		checkbox.addEventListener('click', toggleSectionOnClick);
+		checkbox.dispatchEvent(new Event('click'));
+	}
+}
 
-	if (showHide.checked == true) {
-		for (var i = 0; i < content.length; i++) {
-			content[i].style.display = '';
-			showHideLabel.innerHTML = '[hide]';
+function initLocationTypeCheckboxes() {
+	const locationCheckboxes = document.querySelectorAll('[data-checkbox-location-type], [data-checkbox-advanced-location-type]');
+	for (checkbox of locationCheckboxes) {
+		checkbox.addEventListener('click', toggleLocationsOnClick);
+		checkbox.dispatchEvent(new Event('click'));
+	};
+}
+
+function initEnableAdvancedLocationCheckbox() {
+	const advancedCheckbox = document.getElementById('locationtype_enable_advanced_locations');
+	advancedCheckbox.addEventListener('click', toggleAdvancedLocationSelectionOnClick);
+	advancedCheckbox.dispatchEvent(new Event('click'));
+}
+
+function initProgressionItemCheckboxes() {
+	const dataProvides = document.querySelectorAll('[data-provides]')
+	for (checkbox of dataProvides) {
+		checkbox.addEventListener('click', toggleItemsOnClick);
+		checkbox.addEventListener('click', setStreamViewCheckboxStatusOnClick);
+		checkbox.dispatchEvent(new Event('click'));
+	};
+}
+
+function initNotesArea() {
+	const notesArea = document.getElementById('notes_area');
+	notesArea.addEventListener('input', setLocalNotesOnChange);
+	const notesContent = localNotes(notesArea);
+	if (notesContent) { notesArea.value = notesContent; }
+}
+
+function initResetButton() {
+	document.getElementById('reset').addEventListener('click', resetTracker);
+}
+
+function initSaveRestoreClearButtons() {
+	//document.getElementById('save').addEventListener('click', saveToLocalStorage);
+	document.getElementById('save').addEventListener('click', saveToFile);
+	//document.getElementById('restore').addEventListener('click', restoreFromLocalStorage);
+	document.getElementById('restore').addEventListener('click', restoreFromFile);
+	//document.getElementById('clear').addEventListener('click', clearLocalStorage);
+}
+
+function initColorSchemeButtons() {
+	document.getElementById('colorscheme_dark').addEventListener('click', setColorSchemeDark);
+	document.getElementById('colorscheme_light').addEventListener('click', setColorSchemeLight);
+	document.getElementById('colorscheme_system').addEventListener('click', setColorSchemeSystem);
+}
+
+/*
+ * Event Handlers for Tracker State/Logic
+*/
+
+function toggleLocationsOnClick(e) {
+	toggleLocations(e.target);
+}
+
+function toggleAdvancedLocationSelectionOnClick(e) {
+	toggleAdvancedLocationSelection(e.target);
+}
+
+function toggleItemsOnClick(e) {
+	toggleItems(e.target);
+}
+
+function toggleSectionOnClick(e) {
+	toggleSection(e.target);
+}
+
+function setLocalNotesOnChange(e) {
+	setLocalNotes(e.target);
+}
+
+function setLocalCheckboxStatusOnClick(e) {
+	setLocalCheckboxStatus(e.target);
+}
+
+function setStreamViewCheckboxStatusOnClick(e) {
+	setStreamViewCheckboxStatus(e.target);
+}
+
+
+/*
+ * Tracker State/Logic
+ *
+ * Use locationtype & progression item checkboxes to determine which locations are available
+*/
+
+function checkAreas() {
+	// Check if a location area should be displayed
+
+	// show if at least one child .item_location without 'hidden = true'
+    toShow = document.querySelectorAll(`.location_group:has(.item_location:not([hidden]))`);
+	for (e of toShow) {
+    	e.hidden = false;
+	}
+
+	// hide if no child .item_location without 'hidden = true' (all are hidden)
+    toHide = document.querySelectorAll(`.location_group:not(:has(.item_location:not([hidden])))`);
+	for (e of toHide) {
+    	e.hidden = true;
+	}
+}
+
+function checkRequirements(loc) {
+	// Check if all [data-requires] items for a location have been met.
+	// This is called when a checkbox with [data-provides] is checked.
+	const reqList = loc.dataset.requires.split(" ");
+	const reqCount = reqList.length
+	if (reqCount == 1) { return true; }
+
+	for (req of reqList) {
+		if (!document.querySelector(`[data-provides="${req}"]:checked`)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function toggleLocations(e) {
+	const advancedEnabled = document.getElementById('locationtype_enable_advanced_locations').checked;
+	const hasAdvancedLocations = Boolean(e.dataset.hasAdvancedLocations);
+	const isAdvancedLocation = Boolean(e.dataset.checkboxAdvancedLocationType);
+	const checked = e.checked
+
+	if (!advancedEnabled || (!isAdvancedLocation && !hasAdvancedLocations)) {
+		toggleBasicLocation(e);
+	} else if (advancedEnabled && isAdvancedLocation) {
+		toggleAdvancedLocation(e);
+	} else if (advancedEnabled && hasAdvancedLocations) {
+		toggleAdvancedArea(e);
+	}
+
+	checkAreas();
+}
+
+function toggleBasicLocation(e) {
+	const locationType = e.dataset.checkboxLocationType;
+	const locationList = document.querySelectorAll(`.item_location[data-item-location-type="${locationType}"]`);
+
+	for (loc of locationList) {
+		loc.hidden = !e.checked;
+	}
+}
+
+function toggleAdvancedLocation(e) {
+	const locationType = e.dataset.checkboxAdvancedLocationType;
+	const locationList = document.querySelectorAll(`.item_location[data-item-advanced-location="${locationType}"]`);
+
+	const basicType = e.dataset.checkboxBasicLocationType;
+	const basicChecked = document.querySelector(`[data-checkbox-location-type="${basicType}"]`).checked;
+
+	const hiddenVal = !(basicChecked && e.checked)
+
+	for (loc of locationList) {
+		loc.hidden = hiddenVal;
+	}
+}
+
+function toggleAdvancedArea(e) {
+	const locationType = e.dataset.checkboxLocationType;
+
+	const basicType = e.dataset.checkboxLocationType;
+	const basicLabelSelector = `[data-checkbox-basic-location-type="${basicType}"] ~ label`;
+	const basicLabelList = document.querySelectorAll(basicLabelSelector);
+
+	if (e.checked) {
+		const advancedSelector = `[data-checkbox-location-type="${locationType}"] ~ .locationtype_advanced [data-checkbox-advanced-location-type]`
+		const advancedLocations = document.querySelectorAll(advancedSelector);
+
+		for (label of basicLabelList) {
+			label.dataset.available = "true";
+		}
+
+		for (loc of advancedLocations) {
+			toggleAdvancedLocation(loc);
 		}
 	} else {
-		for (var i = 0; i < content.length; i++) {
-			content[i].style.display = 'none';
-			showHideLabel.innerHTML = '[show]';
+		const locationListSelector = `.item_location[data-item-location-type="${locationType}"]`;
+		const locationList = document.querySelectorAll(locationListSelector);
+
+		for (label of basicLabelList) {
+			label.dataset.available = "false";
+		}
+
+		for (loc of locationList) {
+			loc.hidden = true;
 		}
 	}
 }
+
+function toggleAdvancedLocationSelection(e) {
+	const advDivs = document.querySelectorAll('.locationtype_advanced');
+	let checkboxSelector = '[data-checkbox-location-type]';
+
+	if (e.checked) { checkboxSelector  += ', [data-checkbox-advanced-location-type]'; }
+
+	locationCheckboxes = document.querySelectorAll(checkboxSelector);
+
+	for (div of advDivs) {
+		div.hidden = !e.checked;
+	}
+
+	for (checkbox of locationCheckboxes) {
+		checkbox.dispatchEvent(new Event('click'));
+	}
+}
+
+function toggleItems(e) {
+	const itemProvides = e.dataset.provides;
+	const locationList = document.querySelectorAll(`.item_location label[data-requires~="${itemProvides}"]`);
+
+	for (loc of locationList) {
+		loc.dataset.available = e.checked && checkRequirements(loc);
+	}
+}
+
+function toggleSection(e) {
+	const sectionClasses = e.dataset.toggles.split(" ");
+	for (sectionClass of sectionClasses) {
+		const section = document.querySelectorAll(`.${sectionClass}`);
+		const label = document.querySelector(`label[for="${sectionClass}_toggle"] small`);
+
+		const displayVal = e.checked ? '' : 'none';
+		const labelVal = e.checked ? '[hide]' : '[show]';
+
+		for (sec of section) {
+			sec.style.display = displayVal;
+		}
+		if (label) { label.textContent = labelVal; }
+	}
+}
+
+function moonstoneCountInc() {
+	const moonstoneCountEl = document.getElementById('tracker_item_moonstonecount');
+	const moonstoneCount = parseInt(moonstoneCountEl.dataset.moonstoneCount);
+	const newCount = moonstoneCount+1 > 8 ? 8 : moonstoneCount+1;
+	moonstoneCountEl.dataset.moonstoneCount = newCount;
+	moonstoneCountEl.textContent = newCount;
+	setLocalMoonstoneCount(moonstoneCountEl.id, newCount);
+	setStreamViewMoonstoneCount(moonstoneCountEl.id, newCount);
+}
+
+function moonstoneCountDec() {
+	const moonstoneCountEl = document.getElementById('tracker_item_moonstonecount');
+	const moonstoneCount = parseInt(moonstoneCountEl.dataset.moonstoneCount);
+	const newCount = moonstoneCount-1 < 0 ? 0 : moonstoneCount-1;
+	moonstoneCountEl.dataset.moonstoneCount = newCount;
+	moonstoneCountEl.textContent = newCount;
+	setLocalMoonstoneCount(moonstoneCountEl.id, newCount);
+	setStreamViewMoonstoneCount(moonstoneCountEl.id, newCount);
+}
+
+
+
+/*
+ * Settings State/Logic
+*/
+
+function setColorSchemeDark() {
+	setColorScheme('dark');
+}
+
+function setColorSchemeLight() {
+	setColorScheme('light');
+}
+
+function setColorSchemeSystem() {
+	setColorScheme('system');
+}
+
+function setColorScheme(colorScheme) {
+	document.documentElement.dataset.colorScheme = colorScheme;
+	localStorage.setItem('color_scheme_locationtracker', colorScheme);
+	if (colorScheme == 'system') { localStorage.removeItem('color_scheme_locationtracker'); }
+}
+
+function localColorScheme() {
+	return localStorage.getItem('color_scheme_locationtracker');
+}
+
+/*
+ * Local/Local Storage
+ *
+ * Persist tracker state in the current local with KEY_PREFIX (persists through reloads and tab close/reopen).
+ *
+ * Use localStorage with STREAMVIEW_PREFIX to share state with stream view. Stream view has eventListener when localStorage is updated.
+ *
+ * LocalStorage to persist across locals lives in randomizer-trackerstorage.
+*/
 
 function resetTracker() {
-	if (confirm('Are you sure you want to reset the tracker?') == true) {
-		for (var i = 0; i < CHECKBOX_LIST.length; i++) {
-			sessionStorage.removeItem(KEY_PREFIX + CHECKBOX_LIST[i].id);
-		}
-		for (var i = 0; i < SPOTS_LIST.length; i++) {
-			sessionStorage.removeItem(KEY_PREFIX + SPOTS_LIST[i].id);
-		}
-		pageInit();
-	}
-}
-
-function setCoordinates(e) {
-	if (e.target.textContent != '     Click to enter coordinates') {
-		if (confirm('You have already entered coordinates. Are you sure you want to change them?') == true) {
-			var newCoordinates = prompt('Enter coordinates: ');
-			const re = /^\s+$/;
-			if (re.test(newCoordinates) == false && newCoordinates != null && newCoordinates.length > 0) {
-				setValue(e.target.id + '_old', e.target.textContent);
-				e.target.textContent = '     ' + newCoordinates;
-				setValue(e.target.id, e.target.textContent);
+	//const reset = confirm("This will reset the tracker, are you sure?");
+	if (reset) {
+		localKeys = Object.keys(localStorage);
+		for (key of localKeys) {
+			if (key.startsWith(KEY_PREFIX)) {
+				localStorage.removeItem(key);
 			}
 		}
-	} else {
-		var newCoordinates = prompt('Enter coordinates: ');
-		const re = /^\s+$/;
-		if (re.test(newCoordinates) == false && newCoordinates != null && newCoordinates.length > 0) {
-			setValue(e.target.id + '_old', e.target.textContent);
-			e.target.textContent = '     ' + newCoordinates;
-			setValue(e.target.id, e.target.textContent);
-		}
+		location.reload();
 	}
 }
 
-function undoCoordinates(e) {
-	if (e.target.textContent != 'Click to enter coordinates' &&
-		getValue(e.target.id + '_old')) {
-		var temp = e.target.textContent;
-		e.target.textContent = getValue(e.target.id + '_old');
-		setValue(e.target.id + '_old', temp);
-		setValue(e.target.id, e.target.textContent);
-		e.preventDefault();
-	} else {
-		e.preventDefault();
-	}
+function setLocalNotes(e) {
+	localStorage.setItem(KEY_PREFIX+e.id, e.value);
+}
+
+function localNotes(e) {
+	return localStorage.getItem(KEY_PREFIX+e.id);
+}
+
+
+function setLocalCheckboxStatus(e) {
+	localStorage.setItem(KEY_PREFIX+e.id, e.checked);	
+}
+
+function localCheckboxStatus(e) {
+	return localStorage.getItem(KEY_PREFIX+e.id);
+}
+
+function setLocalMoonstoneCount(id, newCount) {
+	localStorage.setItem(KEY_PREFIX+id,newCount);
+}
+
+function setStreamViewMoonstoneCount(id, newCount) {
+	localStorage.setItem(STREAMVIEW_PREFIX+id,newCount);
+}
+
+function setStreamViewCheckboxStatus(e) {
+	localStorage.setItem(STREAMVIEW_PREFIX+e.id, e.checked);
 }

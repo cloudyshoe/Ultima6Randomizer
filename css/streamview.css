@@ -1,0 +1,29 @@
+body {
+	background: var(--u6-color);
+	--u6-color: #fff7c6;
+}
+
+div {
+	display: grid;
+	grid-template-columns: repeat(5, 150px);
+	grid-template-rows: repeat(5, 150px);
+}
+
+[data-acquired] {
+	font-size: 6em;
+}
+
+[data-acquired="true"],
+[data-moonstone-count] {
+	opacity: 100%;
+}
+
+[data-acquired="false"],
+[data-moonstone-count="0"] {
+	opacity: 60%;
+}
+
+.streamview_settings {
+	display: inline;
+	margin-top: 75px
+}
