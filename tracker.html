@@ -34,25 +34,6 @@
 			</a>
         </div>
 	</div>
-	<!--
-	<details id="menu">
-		<summary><h3>Menu</h3></summary>
-		<ul>
-			<li data-dialog-target="reset_tracker_dialog">
-				<h3>Reset Tracker</h3>
-			</li>
-			<li data-dialog-target="save_dialog">
-				<h3>Save / Reload Tracker State</h3>
-			</li>
-			<li data-dialog-target="streamview_dialog">
-				<h3>Stream View</h3>
-			</li>
-			<li data-dialog-target="colorscheme_dialog">
-				<h3>Color Scheme Options</h3>
-			</li>
-		</ul>
-	</details>
-	-->
 	<h3 data-dialog-target="menu_dialog">Menu</h3>
 	<dialog id="menu_dialog">
 		<ul>
@@ -91,10 +72,33 @@
 			<form method="dialog">
 				<h4>
 					<p>Save tracker state to file</p>
-					<button id="save" title="Save tracker state to be reloaded at a later time">Save</button>
-					<button id="restore" title="Restore previously saved tracker state">Restore</button>
-					<!-- <button id="clear" title="Clear the saved tracker state">Clear</button> -->
+					<button id="save" data-dialog-target="save_confirm_dialog" title="Save tracker state to be reloaded at a later time">Save</button>
+					<button id="restore" data-dialog-target="restore_confirm_dialog" title="Restore previously saved tracker state" >Restore</button>
 					<button title="Close this dialog" autofocus>Cancel</button>
+				</h4>
+			</form>
+		</div>
+	</dialog>
+	<dialog id="save_confirm_dialog">
+		<div class="save_confirm_container">
+			<form method="dialog">
+				<h4>
+					<p>Do you want to save the tracker state to a file?</p>
+					<p>This will not affect the current state of the tracker.</p>
+					<button id="save_okay" title="Confirm saving file">OK</button>
+					<button title="Cancel saving file">Cancel</button>
+				</h4>
+			</form>
+		</div>
+	</dialog>
+	<dialog id="restore_confirm_dialog">
+		<div class="restore_confirm_container">
+			<form method="dialog">
+				<h4>
+					<p>Do you want to restore a saved tracker state from a file?</p>
+					<p>This will overwrite the existing state.</p>
+					<button id="restore_okay" title="Confirm restoring file">OK</button>
+					<button title="Cancel restoring file">Cancel</button>
 				</h4>
 			</form>
 		</div>
@@ -125,31 +129,11 @@
 			</form>
 		</div>
 	</dialog>
-	<div class="settings_container" style="display: none">
-		<summary title="Show button to reset the tracker to the default state"
-				 data-dialog-target="reset_tracker_dialog">
-			<h3>Reset Tracker</h3>
-		</summary>
-			<summary title="Show options for saving, restoring, and clearing the saved tracker state"
-					 data-dialog-target="save_dialog">
-				<h3>Save / Reload Tracker State</h3>
-			</summary>
-		<summary title="A separate window that visually shows which items have been found."
-				 data-dialog-target="streamview_dialog">
-			<h3>Stream View</h3>
-		</summary>
-		<summary title="Show/hide options for color schemes"
-				 data-dialog-target="colorscheme_dialog">
-			<h3>Color Scheme Options</h3>
-		</summary>
-	</div>
 	<hr/>
-	<!-- <input type="checkbox" id="locationtype_selection_toggle" data-toggles="locationtype_selection locationtype_description" checked hidden autocomplete="off"> -->
 	<details>
 	<summary>
 	<h3>
 		Location Selection
-		<!-- <label for="locationtype_selection_toggle"> <small>[hide]</small> </label> -->
 	</h3>
 	</summary>
 	<div class="locationtype_description">
@@ -280,7 +264,7 @@
 			</div>
 		</div>
 	</div>
-	</hr />
+	<hr />
 	<input type="checkbox" id="notes_toggle" data-toggles="notes" checked hidden autocomplete="off">
 	<h3>Notes <label for="notes_toggle"><small>[hide]</small></label></h3>
 	<div class="notes">

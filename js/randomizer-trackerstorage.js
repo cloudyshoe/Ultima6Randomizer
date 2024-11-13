@@ -1,5 +1,3 @@
-let RESET_VAL = false;
-
 function saveToLocalStorage() {
 	if (confirm('Do you want to save the current tracker state?\nThis will overwrite any previously saved tracker states.') == true) {
 
@@ -70,70 +68,47 @@ function toggleStorageOptions() {
 }
 
 function saveToFile() {
-	if (confirm('Do you want to save the current tracker state to a file?') == true) {
-		const toFile = {};
-		const localEntries = Object.entries(localStorage);
-		
-		for ([key, value] of localEntries) {
-			if (key.startsWith(KEY_PREFIX)) {
-				toFile[key] = value;
-			}
+	const toFile = {};
+	const localEntries = Object.entries(localStorage);
+	
+	for ([key, value] of localEntries) {
+		if (key.startsWith(KEY_PREFIX)) {
+			toFile[key] = value;
 		}
-
-		console.log(toFile);
-
-		const jsonBlob = new Blob([JSON.stringify(toFile)], { type:"application/json;charset=utf-8" });
-		const url = window.URL.createObjectURL(jsonBlob);
-		const a = document.createElement('a');
-		a.href = url;
-		const date = new Date;
-		const timestamp = `${date.getFullYear()}` + "-" +
-			`${date.getMonth()+1}`.padStart(2,'0') + "-" +
-			`${date.getDay()}`.padStart(2,'0') + "-" +
-			`${date.getHours()}`.padStart(2,'0') + "-" +
-			`${date.getMinutes()}`.padStart(2,'0') + "-" +
-			`${date.getSeconds()}`.padStart(2,'0');
-		a.download = `u6r_${KEY_PREFIX}_state_${timestamp}.json`;
-		a.click();
 	}
+
+	console.log(toFile);
+
+	const jsonBlob = new Blob([JSON.stringify(toFile)], { type:"application/json;charset=utf-8" });
+	const url = window.URL.createObjectURL(jsonBlob);
+	const a = document.createElement('a');
+	a.href = url;
+	const date = new Date;
+	const timestamp = `${date.getFullYear()}` + "-" +
+		`${date.getMonth()+1}`.padStart(2,'0') + "-" +
+		`${date.getDay()}`.padStart(2,'0') + "-" +
+		`${date.getHours()}`.padStart(2,'0') + "-" +
+		`${date.getMinutes()}`.padStart(2,'0') + "-" +
+		`${date.getSeconds()}`.padStart(2,'0');
+	a.download = `u6r_${KEY_PREFIX}_state_${timestamp}.json`;
+	a.click();
 }
 
 async function restoreFromFile() {
-	if (confirm('Do you want to restore a saved tracker state from a file?\nThis will overwrite the existing state.') == true) {
-		const options = {
-			types: [
-				{
-					description: "json",
-					accept: {
-						"application/json": [".json"],
-					},
-				},
-			],
-			multiple: false,
-		};
-
-		let fileHandle;
-
-//		try {
-//			[fileHandle] =  await showOpenFilePicker(options);
-//		} catch {
-//			return;
-//		}
-
-		const blah = document.getElementById('importFile');
-		blah.addEventListener('change', parseDataFromFile);
-		blah.click();
+	const importFile = document.getElementById('importFile');
+	importFile.addEventListener('change', parseDataFromFile);
+	importFile.click();
 }
 
 async function parseDataFromFile() {
 
-	const blah = document.getElementById('importFile');
-	if (blah.files.length != 1 || RESET_VAL) {
+	const importFiles = document.getElementById('importFile');
+	if (importFiles.files.length != 1) {
 		return;
 	}
 
-	console.log('We have ' + blah.files.length + ' files');
-	const fileText = await blah.files[0].text();
+	console.log('We have ' + importFiles.files.length + ' files');
+	const fileText = await importFiles.files[0].text();
 	let jsonData;
 
 	try {
@@ -165,4 +140,4 @@ async function parseDataFromFile() {
 	}
 
 	location.reload();
-}}
+}

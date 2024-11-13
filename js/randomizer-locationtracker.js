@@ -113,11 +113,8 @@ function initResetButton() {
 }
 
 function initSaveRestoreClearButtons() {
-	//document.getElementById('save').addEventListener('click', saveToLocalStorage);
-	document.getElementById('save').addEventListener('click', saveToFile);
-	//document.getElementById('restore').addEventListener('click', restoreFromLocalStorage);
-	document.getElementById('restore').addEventListener('click', restoreFromFile);
-	//document.getElementById('clear').addEventListener('click', clearLocalStorage);
+	document.getElementById('save_okay').addEventListener('click', saveToFile);
+	document.getElementById('restore_okay').addEventListener('click', restoreFromFile);
 }
 
 function initColorSchemeButtons() {
@@ -370,17 +367,13 @@ function localColorScheme() {
 */
 
 function resetTracker() {
-	//const reset = confirm("This will reset the tracker, are you sure?");
-	//if (reset) {
-		RESET_VAL = true;
-		localKeys = Object.keys(localStorage);
-		for (key of localKeys) {
-			if (key.startsWith(KEY_PREFIX)) {
-				localStorage.removeItem(key);
-			}
+	localKeys = Object.keys(localStorage);
+	for (key of localKeys) {
+		if (key.startsWith(KEY_PREFIX)) {
+			localStorage.removeItem(key);
 		}
-		location.reload();
-	//}
+	}
+	location.reload();
 }
 
 function setLocalNotes(e) {

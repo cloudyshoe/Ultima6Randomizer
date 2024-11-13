@@ -90,7 +90,7 @@ textarea {
 	text-align: center;
 }
 
-.save_container, .streamview_container {
+.save_container, .save_confirm_container, .streamview_container, .restore_confirm_container {
 	text-align: center;
 }
 
