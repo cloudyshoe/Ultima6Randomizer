@@ -20,9 +20,7 @@ function pageInit() {
 
 	const dialogLinks = document.querySelectorAll('[data-dialog-target]');
 	for (link of dialogLinks) {
-		console.log(link.dataset.dialogTarget);
 		if (link.dataset.dialogTarget) {
-			console.log(link.dataset.dialogTarget);
 			const dialog = document.getElementById(link.dataset.dialogTarget);
 			link.addEventListener('click', (e) => dialog.showModal()); 
 		}
@@ -373,7 +371,8 @@ function localColorScheme() {
 
 function resetTracker() {
 	//const reset = confirm("This will reset the tracker, are you sure?");
-	if (reset) {
+	//if (reset) {
+		RESET_VAL = true;
 		localKeys = Object.keys(localStorage);
 		for (key of localKeys) {
 			if (key.startsWith(KEY_PREFIX)) {
@@ -381,7 +380,7 @@ function resetTracker() {
 			}
 		}
 		location.reload();
-	}
+	//}
 }
 
 function setLocalNotes(e) {

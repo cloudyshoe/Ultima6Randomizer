@@ -1,3 +1,5 @@
+let RESET_VAL = false;
+
 function saveToLocalStorage() {
 	if (confirm('Do you want to save the current tracker state?\nThis will overwrite any previously saved tracker states.') == true) {
 
@@ -29,7 +31,8 @@ function restoreFromLocalStorage() {
 			}
 
 			let localJSON = JSON.parse(localStorage.getItem(KEY_PREFIX));
-			let localEntries = Object.entries(localJSON[KEY_PREFIX]);
+
+			localEntries = Object.entries(localJSON[KEY_PREFIX]);
 			for ([key,value] of localEntries) {
 				localStorage.setItem(key, value);
 			}
@@ -111,45 +114,55 @@ async function restoreFromFile() {
 
 		let fileHandle;
 
-		try {
-			[fileHandle] =  await showOpenFilePicker(options);
-		} catch {
-			return;
-		}
+//		try {
+//			[fileHandle] =  await showOpenFilePicker(options);
+//		} catch {
+//			return;
+//		}
 
-		const file = await fileHandle.getFile();
-		if (!file) return;
-		const fileText = await file.text();
-
-		let jsonFromFile;
-
-		try {
-			jsonFromFile = JSON.parse(fileText);
-		} catch {
-			alert('Could not parse file');
-			return;
-		}
-
-		if (!Object.keys(jsonFromFile).some(e => e.startsWith(KEY_PREFIX))) {
-			alert('No tracker data in file');
-			return;
-		}
-
-		const localKeys = Object.keys(localStorage);
-		for (key of localKeys) {
-			if (key.startsWith(KEY_PREFIX)) {
-				localStorage.removeItem(key);
-			
-			}
-		}
-
-		const jsonEntries = Object.entries(jsonFromFile);
-		for ([key, value] of jsonEntries) {
-			if (key.startsWith(KEY_PREFIX)) {
-				localStorage.setItem(key, value);
-			}
-		}
-
-		location.reload();
-	}
+		const blah = document.getElementById('importFile');
+		blah.addEventListener('change', parseDataFromFile);
+		blah.click();
 }
+
+async function parseDataFromFile() {
+
+	const blah = document.getElementById('importFile');
+	if (blah.files.length != 1 || RESET_VAL) {
+		return;
+	}
+
+	console.log('We have ' + blah.files.length + ' files');
+	const fileText = await blah.files[0].text();
+	let jsonData;
+
+	try {
+		jsonData = JSON.parse(fileText);
+	} catch {
+		alert('Cannot parse file');
+		return;
+	}
+
+
+	if (!Object.keys(jsonData).some(e => e.startsWith(KEY_PREFIX))) {
+		alert('No tracker data in file');
+		return;
+	}
+
+	const localKeys = Object.keys(localStorage);
+	for (key of localKeys) {
+		if (key.startsWith(KEY_PREFIX)) {
+			localStorage.removeItem(key);
+		
+		}
+	}
+
+	const jsonEntries = Object.entries(jsonData);
+	for ([key, value] of jsonEntries) {
+		if (key.startsWith(KEY_PREFIX)) {
+			localStorage.setItem(key, value);
+		}
+	}
+
+	location.reload();
+}}
