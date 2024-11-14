@@ -76,24 +76,6 @@ textarea {
 	grid-column: span 1;
 }
 
-.settings_container {
-	display: grid;
-	/* grid-template-columns: repeat(auto-fill, minmax(var(--col-width),1fr)); */
-	grid-template-columns: repeat(4, 1fr);
-}
-
-.reset_container {
-	text-align: center;
-}
-
-.colorscheme_container {
-	text-align: center;
-}
-
-.save_container, .save_confirm_container, .streamview_container, .restore_confirm_container {
-	text-align: center;
-}
-
 .hint_area {
 	display: grid;
 	grid-column: span 2;
@@ -193,38 +175,11 @@ dialog {
 	color: var(--text-color);
 }
 
+dialog:not(#menu_dialog) {
+	text-align: center;
+}
+
 dialog::backdrop {
 	backdrop-filter: brightness(0.75);
 	backdrop-filter: saturate(0.75);
-}
-
-details#menu {
-	position: relative;
-	height: 2em;
-}
-
-details#menu[open] {
-	height: 2em;
-}
-
-details#menu ul {
-	position: absolute;
-	background-color: var(--bg-color);
-	opacity: 1;
-	list-style: none;
-	margin: 0;
-	margin-top: -15px;
-	padding: 10px;
-	display: none;	
-	z-index: 1;
-}
-
-details#menu li:hover {
-	cursor: pointer;
-	/* background-color: var(--text-color); */
-	/* color: var(--bg-color); */
-}
-
-details#menu[open] ul {
-	display: block;
 }
