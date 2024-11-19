@@ -9,6 +9,7 @@ function pageInit() {
 	clearStreamView();
 	initMoonstoneCounter();
 	initCheckboxLocalStorage();
+	initDetailsLocalStorage();
 	initShowHideCheckboxes();
 	initLocationTypeCheckboxes();
 	initEnableAdvancedLocationCheckbox();
@@ -43,6 +44,22 @@ function initCheckboxLocalStorage() {
 		checkbox.addEventListener('click', setLocalCheckboxStatusOnClick);
 		const checkboxStatus = localCheckboxStatus(checkbox);
 		if (checkboxStatus) { checkbox.checked = checkboxStatus === 'true'; }
+	}
+}
+
+function initDetailsLocalStorage() {
+	const details = document.querySelectorAll('details');
+	const summaries = document.querySelectorAll('summary');
+	for (summary of summaries) {
+		summary.addEventListener('click', setLocalDetailsStatusOnClick);
+	}
+	for (detail of details) {
+		const detailStatus = localDetailsStatus(detail);
+		if (detailStatus === 'true') { 
+			detail.setAttribute('open',true)
+		} else {
+			detail.removeAttribute('open');
+		}
 	}
 }
 
@@ -149,6 +166,10 @@ function setLocalNotesOnChange(e) {
 
 function setLocalCheckboxStatusOnClick(e) {
 	setLocalCheckboxStatus(e.target);
+}
+
+function setLocalDetailsStatusOnClick(e) {
+	setLocalDetailsStatus(e.target.closest('details'));
 }
 
 function setStreamViewCheckboxStatusOnClick(e) {
@@ -389,7 +410,16 @@ function setLocalCheckboxStatus(e) {
 	localStorage.setItem(KEY_PREFIX+e.id, e.checked);	
 }
 
+function setLocalDetailsStatus(e) {
+	localStorage.setItem(KEY_PREFIX+e.id, !e.hasAttribute('open'));	
+	console.log(!e.hasAttribute('open'));
+}
+
 function localCheckboxStatus(e) {
+	return localStorage.getItem(KEY_PREFIX+e.id);
+}
+
+function localDetailsStatus(e) {
 	return localStorage.getItem(KEY_PREFIX+e.id);
 }
 

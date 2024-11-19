@@ -130,7 +130,7 @@
 		</div>
 	</dialog>
 	<hr/>
-	<details>
+	<details id="details_locationselection" open="">
 	<summary>
 	<h3>
 		Location Selection
@@ -203,11 +203,10 @@
 	</details>
 	<hr/>
 	<!-- <input type="checkbox" id="progressionitem_tracker_toggle" data-toggles="progressionitem_tracker progressionitem_description" checked hidden autocomplete="off"> -->
-	<details>
+	<details id="details_progressionitems" open="">
 		<summary>
 			<h3>
 				Progression Items Found 
-				<!-- <label for="progressionitem_tracker_toggle"><small>[hide]</small></label> -->
 			</h3>
 		</summary>
 	<div class="progressionitem_description">
@@ -244,8 +243,12 @@
 	</div>
 	</details>
 	<hr />
-	<input type="checkbox" id="nonprogressionitem_tracker_toggle" data-toggles="nonprogressionitem_tracker nonprogressionitem_description" checked hidden autocomplete="off">
-	<h3>Other Items Found <label for="nonprogressionitem_tracker_toggle"><small>[hide]</small></label></h3>
+	<details id="details_nonprogressionitems" open="">
+		<summary>
+			<h3>
+				Other Items Found 
+			</h3>
+		</summary>
 	<div class="nonprogressionitem_description">
 			These items do not unlock other location checks, but are useful.
 	</div>
@@ -264,6 +267,7 @@
 			</div>
 		</div>
 	</div>
+	</details>
 	<hr />
 	<input type="checkbox" id="notes_toggle" data-toggles="notes" checked hidden autocomplete="off">
 	<h3>Notes <label for="notes_toggle"><small>[hide]</small></label></h3>
@@ -271,8 +275,12 @@
 		<textarea id="notes_area" autocomplete="off" spellcheck="false" placeholder="Write your notes here" autocomplete="off"></textarea>
 	</div>
 	<hr/>
-	<input type="checkbox" id="location_tracker_toggle" data-toggles="location_tracker" checked hidden autocomplete="off">
-	<h3>Item Locations <label for="location_tracker_toggle"><small>[hide]</small></label></h3>
+	<details id="details_itemlocations" open="">
+		<summary>
+			<h3>
+				Item Locations
+			</h3>
+		</summary>
 	<div class="location_tracker">
 		<div class="location_group" data-area-name="ant_mound" data-area-location-types="caves">
 			<h3 class="location_title">Ant Mound</h3><h5 class="moon_orb_destination"><i>Moon Orb - 2 Down 1 Right</i></h5>
@@ -607,9 +615,14 @@
 			</div>
 		</div>
 	</div>
+	</details>
 	<hr/>
-		<input type="checkbox" id="hint_tracker_toggle" data-toggles="hint_tracker" checked hidden autocomplete="off">
-		<h3>Hint Locations <label for="hint_tracker_toggle"><small>[hide]</small></h3>
+	<details id="details_hintlocations" open="">
+		<summary>
+			<h3>
+				Hint Locations
+			</h3>
+		</summary>
         <div class="hint_tracker">
 			<div class="hint_group">
 				<h4 class="location_title">Britain / Castle Britannia</h4>
@@ -655,6 +668,7 @@
 			</div>
 		</div>
     <hr />
+	</details>
 
     <script src="js/randomizer-trackerstorage.js"></script>
     <script src="js/randomizer-locationtracker.js"></script>
