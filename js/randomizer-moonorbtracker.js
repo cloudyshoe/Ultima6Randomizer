@@ -22,21 +22,19 @@ function pageInit() {
 	}
 
 	document.getElementById('reset').addEventListener('click', resetTracker, false);
-	document.getElementById('save').addEventListener('click', saveToLocalStorage, false);
-	document.getElementById('restore').addEventListener('click', restoreFromLocalStorage, false);
-	document.getElementById('clear').addEventListener('click', clearLocalStorage, false);
-	document.getElementById('toggle_local_storage').addEventListener('click', toggleStorageOptions, false);
+	document.getElementById('save').addEventListener('click', saveToFile, false);
+	document.getElementById('restore').addEventListener('click', restoreFromFile, false);
 
 }
 
 function setValue(key, value) {
 	var setKey = KEY_PREFIX + key;
-	sessionStorage.setItem(setKey, value);
+	localStorage.setItem(setKey, value);
 }
 
 function getValue(key, value) {
 	var getKey = KEY_PREFIX + key;
-	return sessionStorage.getItem(getKey);
+	return localStorage.getItem(getKey);
 }
 
 function setChoice(e) {
@@ -92,10 +90,10 @@ function clearOrbCell(e) {
 
 function resetTracker(e) {
 	if (confirm('This will clear the tracker and history.\nAre you sure?') == true) {
-		var sessionKeys = Object.keys(sessionStorage);
-		for (key in sessionKeys) {
-			if (sessionKeys[key].startsWith(KEY_PREFIX)) {
-				sessionStorage.removeItem(sessionKeys[key]);
+		var localKeys = Object.keys(localStorage);
+		for (key in localKeys) {
+			if (localKeys[key].startsWith(KEY_PREFIX)) {
+				localStorage.removeItem(localKeys[key]);
 			}
 		}
 		pageInit();
