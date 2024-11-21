@@ -407,7 +407,6 @@ function setLocalCheckboxStatus(e) {
 
 function setLocalDetailsStatus(e) {
 	localStorage.setItem(KEY_PREFIX+e.id, !e.hasAttribute('open'));	
-	console.log(!e.hasAttribute('open'));
 }
 
 function localCheckboxStatus(e) {
