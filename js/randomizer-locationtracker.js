@@ -10,7 +10,6 @@ function pageInit() {
 	initMoonstoneCounter();
 	initCheckboxLocalStorage();
 	initDetailsLocalStorage();
-	initShowHideCheckboxes();
 	initLocationTypeCheckboxes();
 	initEnableAdvancedLocationCheckbox();
 	initProgressionItemCheckboxes();
@@ -18,18 +17,7 @@ function pageInit() {
 	initResetButton();
 	initSaveRestoreClearButtons();
 	initColorSchemeButtons();
-
-	const dialogLinks = document.querySelectorAll('[data-dialog-target]');
-	for (link of dialogLinks) {
-		if (link.dataset.dialogTarget) {
-			const dialog = document.getElementById(link.dataset.dialogTarget);
-			link.addEventListener('click', (e) => dialog.showModal()); 
-		}
-		const closestDialog = link.closest("dialog");
-		if (closestDialog) {
-			link.addEventListener('click', (e) => closestDialog.close());
-		}
-	}
+	initDialogLinks();
 }
 
 /*
@@ -53,11 +41,12 @@ function initDetailsLocalStorage() {
 	for (summary of summaries) {
 		summary.addEventListener('click', setLocalDetailsStatusOnClick);
 	}
+
 	for (detail of details) {
 		const detailStatus = localDetailsStatus(detail);
 		if (detailStatus === 'true') { 
 			detail.setAttribute('open',true)
-		} else {
+		} else if (detailStatus === 'false') {
 			detail.removeAttribute('open');
 		}
 	}
@@ -84,14 +73,6 @@ function initMoonstoneCounter() {
 		moonstoneCount.dataset.moonstoneCount = localMoonstoneCount;
 		moonstoneCount.textContent = localMoonstoneCount;
 		localStorage.setItem(STREAMVIEW_PREFIX+'tracker_item_moonstonecount', localMoonstoneCount);
-	}
-}
-
-function initShowHideCheckboxes() {
-	const toggleCheckboxes = document.querySelectorAll('[data-toggles]');
-	for (checkbox of toggleCheckboxes) {
-		checkbox.addEventListener('click', toggleSectionOnClick);
-		checkbox.dispatchEvent(new Event('click'));
 	}
 }
 
@@ -138,6 +119,20 @@ function initColorSchemeButtons() {
 	document.getElementById('colorscheme_dark').addEventListener('click', setColorSchemeDark);
 	document.getElementById('colorscheme_light').addEventListener('click', setColorSchemeLight);
 	document.getElementById('colorscheme_system').addEventListener('click', setColorSchemeSystem);
+}
+
+function initDialogLinks() {
+	const dialogLinks = document.querySelectorAll('[data-dialog-target]');
+	for (link of dialogLinks) {
+		if (link.dataset.dialogTarget) {
+			const dialog = document.getElementById(link.dataset.dialogTarget);
+			link.addEventListener('click', (e) => dialog.showModal()); 
+		}
+		const closestDialog = link.closest("dialog");
+		if (closestDialog) {
+			link.addEventListener('click', (e) => closestDialog.close());
+		}
+	}
 }
 
 /*

@@ -95,8 +95,14 @@ function saveToFile() {
 }
 
 async function restoreFromFile() {
-	const importFile = document.getElementById('importFile');
+	//const importFile = document.getElementById('importFile');
+	const importFile = document.createElement('input');
+	importFile.id = 'importFile';
+	importFile.type = "file";
+	importFile.accept = ".json";
+	importFile.hidden = true;
 	importFile.addEventListener('change', parseDataFromFile);
+	document.body.append(importFile);
 	importFile.click();
 }
 

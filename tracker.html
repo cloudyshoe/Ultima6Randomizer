@@ -42,7 +42,7 @@
 			</li>
 			<li data-dialog-target="save_dialog">
 				<h3>Save / Reload Tracker State</h3>
-				<input type="file" id="importFile" accept=".json" hidden></input>
+				<!-- <input type="file" id="importFile" accept=".json" hidden></input> -->
 			</li>
 			<li data-dialog-target="streamview_dialog">
 				<h3>Stream View</h3>
@@ -202,7 +202,6 @@
 	</div>
 	</details>
 	<hr/>
-	<!-- <input type="checkbox" id="progressionitem_tracker_toggle" data-toggles="progressionitem_tracker progressionitem_description" checked hidden autocomplete="off"> -->
 	<details id="details_progressionitems" open="">
 		<summary>
 			<h3>
@@ -269,11 +268,16 @@
 	</div>
 	</details>
 	<hr />
-	<input type="checkbox" id="notes_toggle" data-toggles="notes" checked hidden autocomplete="off">
-	<h3>Notes <label for="notes_toggle"><small>[hide]</small></label></h3>
+	<details id="details_notes" open="">
+		<summary>
+			<h3>
+				Notes
+			</h3>
+		</summary>
 	<div class="notes">
 		<textarea id="notes_area" autocomplete="off" spellcheck="false" placeholder="Write your notes here" autocomplete="off"></textarea>
 	</div>
+	</details>
 	<hr/>
 	<details id="details_itemlocations" open="">
 		<summary>

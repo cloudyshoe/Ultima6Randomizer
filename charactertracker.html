@@ -27,6 +27,7 @@
 		</style>
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/character-tracker.css">
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 
 		<script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -52,10 +53,8 @@
 		<div class="row">
 			<h4>
 			<button class="btn btn-sm" id="reset" title="Reset tracker to default state">Reset</button>
-			<button class="btn btn-sm local_storage" id="save" title="Save tracker state to be reloaded at a later time" style="display:none">Save</button>
-			<button class="btn btn-sm local_storage" id="restore" title="Restore previously saved tracker state" style="display:none">Restore</button>
-			<button class="btn btn-sm local_storage" id="clear" title="Clear the saved tracker state" style="display:none">Clear</button>
-			<label title="Show options for saving, restoring, and clearing the saved tracker state"><small id="toggle_local_storage">[Show Save Options]</small></label>
+			<button class="btn btn-sm" id="save" title="Save tracker state to be reloaded at a later time">Save</button>
+			<button class="btn btn-sm" id="restore" title="Restore previously saved tracker state">Restore</button>
 			</h4>
 		</div>
 	</div>
@@ -99,9 +98,9 @@
                 Important Characters
                 ===========================
                 -->
-                <div class="npc_location_dialogrewards npc_location_treasuremap otherimportant_npc">
+                <div class="npc_group" data-npc-types="npc_location_dialogrewards npc_location_treasuremap otherimportant_npc">
                     <h3>Important Characters A to L</h3>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Aaron</b><br /><small><i>Minoc<br />Sawmill Worker</i></small></div>
                         <select class="form-control select-npc-randomization" id="Aaron_area">
                             <option value="0" selected="selected"></option>
@@ -140,7 +139,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Antonio</b><br /><small><i>New Magincia<br />Rune Quest Start</i></small></div>
                         <select class="form-control select-npc-randomization" id="Antonio_area">
                             <option value="0" selected="selected"></option>
@@ -179,7 +178,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Anya</b><br /><small><i>Britain<br />Mother of Ariana</i></small></div>
                         <select class="form-control select-npc-randomization" id="Anya_area">
                             <option value="0" selected="selected"></option>
@@ -218,7 +217,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Arbeth</b><br /><small><i>Paws<br />Silk Thread</i></small></div>
                         <select class="form-control select-npc-randomization" id="Arbeth_area">
                             <option value="0" selected="selected"></option>
@@ -257,7 +256,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Ariana</b><br /><small><i>Britain<br />Rune Child</i></small></div>
                         <select class="form-control select-npc-randomization" id="Ariana_area">
                             <option value="0" selected="selected"></option>
@@ -296,7 +295,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Arturos</b><br /><small><i>North of Trinsic<br />Map Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Arturos_area">
                             <option value="0" selected="selected"></option>
@@ -335,7 +334,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Aurendir</b><br /><small><i>New Magincia<br />Shepherd</i></small></div>
                         <select class="form-control select-npc-randomization" id="Aurendir_area">
                             <option value="0" selected="selected"></option>
@@ -374,7 +373,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Big Ben</b><br /><small><i>Yew<br />Log Seller</i></small></div>
                         <select class="form-control select-npc-randomization" id="Big_Ben_area">
                             <option value="0" selected="selected"></option>
@@ -413,7 +412,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Budo</b><br /><small><i>Buc's Den<br />Guild Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Budo_area">
                             <option value="0" selected="selected"></option>
@@ -452,7 +451,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Charlotte</b><br /><small><i>New Magincia<br />Silk Cloth Maker</i></small></div>
                         <select class="form-control select-npc-randomization" id="Charlotte_area">
                             <option value="0" selected="selected"></option>
@@ -491,7 +490,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Conor</b><br /><small><i>New Magincia<br />Fisherman</i></small></div>
                         <select class="form-control select-npc-randomization" id="Conor_area">
                             <option value="0" selected="selected"></option>
@@ -530,7 +529,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Dr. Cat</b><br /><small><i>Paws<br />Tavernkeep</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dr_Cat_area">
                             <option value="0" selected="selected"></option>
@@ -569,7 +568,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Dunbar</b><br /><small><i>New Magincia<br />Cook</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dunbar_area">
                             <option value="0" selected="selected"></option>
@@ -608,7 +607,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Ephemerides</b><br /><small><i>Moonglow<br />Human Lenscrafter</i></small></div>
                         <select class="form-control select-npc-randomization" id="Ephemerides_area">
                             <option value="0" selected="selected"></option>
@@ -647,7 +646,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Homer</b><br /><small><i>Buc's Den<br />Map Quest Start</i></small></div>
                         <select class="form-control select-npc-randomization" id="Homer_area">
                             <option value="0" selected="selected"></option>
@@ -686,7 +685,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Koranada</b><br /><small><i>Serpen'ts Hold<br />Shield Quest Giver</i></small></div>
                         <select class="form-control select-npc-randomization" id="Koranada_area">
                             <option value="0" selected="selected"></option>
@@ -725,7 +724,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Lord British</b><br /><small><i>Britannia Ruler</i></small></div>
                         <select class="form-control select-npc-randomization" id="Lord_British_area">
                             <option value="0" selected="selected"></option>
@@ -764,7 +763,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Lord Whitsaber</b><br /><small><i>Trinsic<br />Mayor</i></small></div>
                         <select class="form-control select-npc-randomization" id="Lord_Whitsaber_area">
                             <option value="0" selected="selected"></option>
@@ -806,9 +805,9 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="npc_location_dialogrewards npc_location_treasuremap otherimportant_npc">
+                <div class="npc_group" data-npc-types="npc_location_dialogrewards npc_location_treasuremap otherimportant_npc">
                     <h3>Important Characters M to Z</h3>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Manrel</b><br /><small><i>Moonglow<br />Crypt Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Manrel_area">
                             <option value="0" selected="selected"></option>
@@ -847,7 +846,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Mariah</b><br /><small><i>Lycaeum<br />Book Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Mariah_area">
                             <option value="0" selected="selected"></option>
@@ -886,7 +885,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Marissa</b><br /><small><i>Paws<br />Silk Bag Maker</i></small></div>
                         <select class="form-control select-npc-randomization" id="Marissa_area">
                             <option value="0" selected="selected"></option>
@@ -925,7 +924,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Michelle</b><br /><small><i>Minoc<br />Basketweaver</i></small></div>
                         <select class="form-control select-npc-randomization" id="Michelle_area">
                             <option value="0" selected="selected"></option>
@@ -964,7 +963,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Morchella</b><br /><small><i>Serpent's Hold<br />Map Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Morchella_area">
                             <option value="0" selected="selected"></option>
@@ -1003,7 +1002,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Nystful</b><br /><small><i>Castle Britannia<br />Mage</i></small></div>
                         <select class="form-control select-npc-randomization" id="Nystful_area">
                             <option value="0" selected="selected"></option>
@@ -1042,7 +1041,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Papa</b><br /><small><i>Cyclops</i></small></div>
                         <select class="form-control select-npc-randomization" id="Papa_area">
                             <option value="0" selected="selected"></option>
@@ -1081,7 +1080,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Penumbra</b><br /><small><i>Moonglow<br />Mystic</i></small></div>
                         <select class="form-control select-npc-randomization" id="Penumbra_area">
                             <option value="0" selected="selected"></option>
@@ -1120,7 +1119,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Sandy</b><br /><small><i>Trinsic<br />Cook</i></small></div>
                         <select class="form-control select-npc-randomization" id="Sandy_area">
                             <option value="0" selected="selected"></option>
@@ -1159,7 +1158,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Selganor</b><br /><small><i>Minoc<br />Rune Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Selganor_area">
                             <option value="0" selected="selected"></option>
@@ -1198,7 +1197,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Sherry</b><br /><small><i>Cute Mouse</i></small></div>
                         <select class="form-control select-npc-randomization" id="Sherry_area">
                             <option value="0" selected="selected"></option>
@@ -1237,7 +1236,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced otherimportant_npc">
+                    <div class="input-group top-spaced" data-npc-type="otherimportant_npc">
                         <div class="input-group-addon otherimportant_npc"><b>Thindle</b><br /><small><i>Paws<br />Spindler</i></small></div>
                         <select class="form-control select-npc-randomization" id="Thindle_area">
                             <option value="0" selected="selected"></option>
@@ -1276,7 +1275,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>William</b><br /><small><i>New Magincia<br />Farmer</i></small></div>
                         <select class="form-control select-npc-randomization" id="William_area">
                             <option value="0" selected="selected"></option>
@@ -1323,9 +1322,9 @@
             ===========================
             -->
             <div class="col-md-4">
-                <div class="npc_location_dialogrewards npc_location_treasuremap">
+                <div class="npc_group" data-npc-types="npc_location_dialogrewards npc_location_treasuremap">
                     <h3>Dungeon Characters</h3>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Captain John</b><br /><small><i>Dungeon Hythloth<br />Langauge Teacher</i></small></div>
                         <select class="form-control select-npc-randomization" id="Captain_John_area">
                             <option value="0" selected="selected"></option>
@@ -1338,7 +1337,7 @@
                             <option value="1">Checked</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced treasuremap_npc">
+                    <div class="input-group top-spaced" data-npc-type="treasuremap_npc">
                         <div class="input-group-addon treasuremap_npc"><b>Ybarra</b><br /><small><i>Dungeon Shame<br />Starving Pirate</i></small></div>
                         <select class="form-control select-npc-randomization" id="Ybarra_area">
                             <option value="0" selected="selected"></option>
@@ -1357,9 +1356,9 @@
                 Gargoyle Characters
                 ===========================
                 -->
-                <div class="npc_location_dialogrewards">
+                <div class="npc_group" data-npc-types="npc_location_dialogrewards">
                     <h3>Gargoyle Characters</h3>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Draxinusom</b><br /><small><i>Gargoyle<br />Leader</i></small></div>
                         <select class="form-control select-npc-randomization" id="Draxinusom_area">
                             <option value="0" selected="selected"></option>
@@ -1381,7 +1380,7 @@
                             <option value="1">Checked</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Lor-wis-lem</b><br /><small><i>Gargoyle<br />Lenscrafter</i></small></div>
                         <select class="form-control select-npc-randomization" id="Lor-wis-lem_area">
                             <option value="0" selected="selected"></option>
@@ -1403,7 +1402,7 @@
                             <option value="1">Checked</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Naxatilor</b><br /><small><i>Gargoyle<br />Lens Quest</i></small></div>
                         <select class="form-control select-npc-randomization" id="Naxatilor_area">
                             <option value="0" selected="selected"></option>
@@ -1425,7 +1424,7 @@
                             <option value="1">Checked</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced dialogrewards_npc">
+                    <div class="input-group top-spaced" data-npc-type="dialogrewards_npc">
                         <div class="input-group-addon dialogrewards_npc"><b>Valkadesh</b><br /><small><i>Gargoyle<br />Quest Starter</i></small></div>
                         <select class="form-control select-npc-randomization" id="Valkadesh_area">
                             <option value="0" selected="selected"></option>
@@ -1453,9 +1452,9 @@
                 Partymembers
                 ===========================
                 -->
-                <div class="npc_location_joinablepartymembers">
+                <div class="npc_group" data-npc-types="npc_location_joinablepartymembers">
                     <h3>Partymembers</h3>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Beh Lem</b><br /><small><i>Gargoyle<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Beh_Lem_area">
                             <option value="0" selected="selected"></option>
@@ -1488,7 +1487,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Blaine</b><br /><small><i>Traveling<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Blaine_area">
                             <option value="0" selected="selected"></option>
@@ -1527,7 +1526,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Dupre</b><br /><small><i>Trinsic<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dupre_area">
                             <option value="0" selected="selected"></option>
@@ -1566,7 +1565,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Gorn</b><br /><small><i>Sutek<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Gorn_area">
                             <option value="0" selected="selected"></option>
@@ -1579,7 +1578,7 @@
                             <option value="1">Checked</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Gwenno</b><br /><small><i>Minoc<br />Partymember<br /></i></small></div>
                         <select class="form-control select-npc-randomization" id="Gwenno_area">
                             <option value="0" selected="selected"></option>
@@ -1618,7 +1617,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Iolo</b><br /><small><i>Empath Abbey<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Iolo_area">
                             <option value="0" selected="selected"></option>
@@ -1657,7 +1656,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Jaana</b><br /><small><i>Yew<br />Partymember<br /></i></small></div>
                         <select class="form-control select-npc-randomization" id="Jaana_area">
                             <option value="0" selected="selected"></option>
@@ -1696,7 +1695,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Julia</b><br /><small><i>Minoc<br />Partymember<br /></i></small></div>
                         <select class="form-control select-npc-randomization" id="Julia_area">
                             <option value="0" selected="selected"></option>
@@ -1735,7 +1734,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Katrina</b><br /><small><i>New Magincia<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Katrina_area">
                             <option value="0" selected="selected"></option>
@@ -1774,7 +1773,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Leodon</b><br /><small><i>Buc's Den<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Leodon_area">
                             <option value="0" selected="selected"></option>
@@ -1813,7 +1812,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Leonna</b><br /><small><i>Buc's Den<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Leonna_area">
                             <option value="0" selected="selected"></option>
@@ -1852,7 +1851,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Seggal</b><br /><small><i>Serpent's Hold<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Seggal_area">
                             <option value="0" selected="selected"></option>
@@ -1891,7 +1890,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Sentri</b><br /><small><i>Serpent's Hold<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Sentri_area">
                             <option value="0" selected="selected"></option>
@@ -1930,7 +1929,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced joinablepartymembers_npc">
+                    <div class="input-group top-spaced" data-npc-type="joinablepartymembers_npc">
                         <div class="input-group-addon joinablepartymembers_npc"><b>Shamino</b><br /><small><i>Skara Brae<br />Partymember</i></small></div>
                         <select class="form-control select-npc-randomization" id="Shamino_area">
                             <option value="0" selected="selected"></option>
@@ -1984,9 +1983,9 @@
                 Mages
                 ===========================
                 -->
-                <div class="npc_location_mages">
+                <div class="npc_group" data-npc-types="npc_location_mages">
                     <h3>Mages</h3>
-                    <div class="input-group top-spaced mages_npc">
+                    <div class="input-group top-spaced" data-npc-type="mages_npc">
                         <div class="input-group-addon mages_npc"><b>Horance</b><br /><small><i>Skara Brae<br />Mage</i></small></div>
                         <select class="form-control select-npc-randomization" id="Horance_area">
                             <option value="0" selected="selected"></option>
@@ -2025,7 +2024,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced mages_npc">
+                    <div class="input-group top-spaced" data-npc-type="mages_npc">
                         <div class="input-group-addon mages_npc"><b>Nicodemus</b><br /><small><i>Deep Forest<br />Mage</i></small></div>
                         <select class="form-control select-npc-randomization" id="Nicodemus_area">
                             <option value="0" selected="selected"></option>
@@ -2064,7 +2063,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced mages_npc">
+                    <div class="input-group top-spaced" data-npc-type="mages_npc">
                         <div class="input-group-addon mages_npc"><b>Rudyom</b><br /><small><i>Cove<br />Mage</i></small></div>
                         <select class="form-control select-npc-randomization" id="Rudyom_area">
                             <option value="0" selected="selected"></option>
@@ -2103,7 +2102,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced mages_npc">
+                    <div class="input-group top-spaced" data-npc-type="mages_npc">
                         <div class="input-group-addon mages_npc"><b>Xiao</b><br /><small><i>Moonglow<br />Mage</i></small></div>
                         <select class="form-control select-npc-randomization" id="Xiao_area">
                             <option value="0" selected="selected"></option>
@@ -2150,9 +2149,9 @@
                 Shipwrights
                 ===========================
                 -->
-                <div class="npc_location_shipwrights">
+                <div class="npc_group" data-npc-types="npc_location_shipwrights">
                     <h3>Shipwrights</h3>
-                    <div class="input-group top-spaced shipwrights_npc">
+                    <div class="input-group top-spaced" data-npc-type="shipwrights_npc">
                         <div class="input-group-addon shipwrights_npc"><b>Arty</b><br /><small><i>Britain<br />Shipwright</i></small></div>
                         <select class="form-control select-npc-randomization" id="Arty_area">
                             <option value="0" selected="selected"></option>
@@ -2191,7 +2190,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced shipwrights_npc">
+                    <div class="input-group top-spaced" data-npc-type="shipwrights_npc">
                         <div class="input-group-addon shipwrights_npc"><b>Fentrissa</b><br /><small><i>Buc's Den<br />Shipwright</i></small></div>
                         <select class="form-control select-npc-randomization" id="Fentrissa_area">
                             <option value="0" selected="selected"></option>
@@ -2230,7 +2229,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced shipwrights_npc">
+                    <div class="input-group top-spaced" data-npc-type="shipwrights_npc">
                         <div class="input-group-addon shipwrights_npc"><b>Peer</b><br /><small><i>Jhelom<br />Shipwright</i></small></div>
                         <select class="form-control select-npc-randomization" id="Peer_area">
                             <option value="0" selected="selected"></option>
@@ -2269,7 +2268,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced shipwrights_npc">
+                    <div class="input-group top-spaced" data-npc-type="shipwrights_npc">
                         <div class="input-group-addon shipwrights_npc"><b>Trebor</b><br /><small><i>Minoc<br />Shipwright</i></small></div>
                         <select class="form-control select-npc-randomization" id="Trebor_area">
                             <option value="0" selected="selected"></option>
@@ -2314,9 +2313,9 @@
                 Shops
                 ===========================
                 -->
-                <div class="npc_location_shops">
+                <div class="npc_group" data-npc-types="npc_location_shops">
                     <h3>Shops</h3>
-                    <div class="input-group top-spaced shops_npc">
+                    <div class="input-group top-spaced" data-npc-type="shops_npc">
                         <div class="input-group-addon shops_npc"><b>Efram</b><br /><small><i>Britain<br />Provisions</i></small></div>
                         <select class="form-control select-npc-randomization" id="Efram_area">
                             <option value="0" selected="selected"></option>
@@ -2355,7 +2354,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced shops_npc">
+                    <div class="input-group top-spaced" data-npc-type="shops_npc">
                         <div class="input-group-addon shops_npc"><b>Gwenneth</b><br /><small><i>Britain<br />Bow Seller</i></small></div>
                         <select class="form-control select-npc-randomization" id="Gwenneth_area">
                             <option value="0" selected="selected"></option>
@@ -2394,7 +2393,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced shops_npc">
+                    <div class="input-group top-spaced" data-npc-type="shops_npc">
                         <div class="input-group-addon shops_npc"><b>Lynn</b><br /><small><i>Britain<br />Fletcher</i></small></div>
                         <select class="form-control select-npc-randomization" id="Lynn_area">
                             <option value="0" selected="selected"></option>
@@ -2441,9 +2440,9 @@
                 Smiths
                 ===========================
                 -->
-                <div class="npc_location_smiths">
+                <div class="npc_group" data-npc-types="npc_location_smiths">
                     <h3>Smiths</h3>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Brandon</b><br /><small><i>Trinsic<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Brandon_area">
                             <option value="0" selected="selected"></option>
@@ -2482,7 +2481,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Enrik</b><br /><small><i>Buc's Den<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Enrik_area">
                             <option value="0" selected="selected"></option>
@@ -2521,7 +2520,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Gherick</b><br /><small><i>Serpent's Hold<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Gherick_area">
                             <option value="0" selected="selected"></option>
@@ -2560,7 +2559,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>James</b><br /><small><i>Minoc<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="James_area">
                             <option value="0" selected="selected"></option>
@@ -2599,7 +2598,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Max</b><br /><small><i>Britain<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Max_area">
                             <option value="0" selected="selected"></option>
@@ -2638,7 +2637,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Nomaan</b><br /><small><i>Jhelom<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Nomaan_area">
                             <option value="0" selected="selected"></option>
@@ -2677,7 +2676,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced smiths_npc">
+                    <div class="input-group top-spaced" data-npc-type="smiths_npc">
                         <div class="input-group-addon smiths_npc"><b>Utomo</b><br /><small><i>Yew<br />Smith</i></small></div>
                         <select class="form-control select-npc-randomization" id="Utomo_area">
                             <option value="0" selected="selected"></option>
@@ -2731,9 +2730,9 @@
                 Other Characters
                 ===========================
                 -->
-                <div class="npc_location_other">
+                <div class="npc_group" data-npc-types="npc_location_other">
                     <h3>Other Characters</h3>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Dale</b><br /><small><i>Minoc<br />Glassblower</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dale_area">
                             <option value="0" selected="selected"></option>
@@ -2772,7 +2771,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Karina</b><br /><small><i>Nomad Child</i></small></div>
                         <select class="form-control select-npc-randomization" id="Karina_area">
                             <option value="0" selected="selected"></option>
@@ -2811,7 +2810,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Lenora</b><br /><small><i>Yew<br />Mayor</i></small></div>
                         <select class="form-control select-npc-randomization" id="Lenora_area">
                             <option value="0" selected="selected"></option>
@@ -2850,7 +2849,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Mortude</b><br /><small><i>Paws<br />Ropemaker</i></small></div>
                         <select class="form-control select-npc-randomization" id="Mortude_area">
                             <option value="0" selected="selected"></option>
@@ -2889,7 +2888,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Pridgarm</b><br /><small><i>Yew<br />Jailer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Pridgarm_area">
                             <option value="0" selected="selected"></option>
@@ -2928,7 +2927,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Senob</b><br /><small><i>Potion<br />Seller</i></small></div>
                         <select class="form-control select-npc-randomization" id="Senob_area">
                             <option value="0" selected="selected"></option>
@@ -2967,7 +2966,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Smith</b><br /><small><i>Talking Horse</i></small></div>
                         <select class="form-control select-npc-randomization" id="Smith_area">
                             <option value="0" selected="selected"></option>
@@ -3006,7 +3005,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Terri</b><br /><small><i>Britain<br />Banker</i></small></div>
                         <select class="form-control select-npc-randomization" id="Terri_area">
                             <option value="0" selected="selected"></option>
@@ -3045,7 +3044,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced other_npc">
+                    <div class="input-group top-spaced" data-npc-type="other_npc">
                         <div class="input-group-addon other_npc"><b>Zoltan</b><br /><small><i>Nomad<br />Reagent Seller</i></small></div>
                         <select class="form-control select-npc-randomization" id="Zoltan_area">
                             <option value="0" selected="selected"></option>
@@ -3092,9 +3091,9 @@
                 Healers
                 ===========================
                 -->
-                <div class="npc_location_healers">
+                <div class="npc_group" data-npc-types="npc_location_healers">
                     <h3>Healers</h3>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Dargoth</b><br /><small><i>Moonglow<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dargoth_area">
                             <option value="0" selected="selected"></option>
@@ -3133,7 +3132,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Dezana</b><br /><small><i>Skara Brae<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dezana_area">
                             <option value="0" selected="selected"></option>
@@ -3172,7 +3171,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Sasha</b><br /><small><i>Cove<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Sasha_area">
                             <option value="0" selected="selected"></option>
@@ -3211,7 +3210,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Stephanie</b><br /><small><i>Empath Abbey<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Stephanie_area">
                             <option value="0" selected="selected"></option>
@@ -3250,7 +3249,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Tara</b><br /><small><i>Minoc<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Tara_area">
                             <option value="0" selected="selected"></option>
@@ -3289,7 +3288,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Tiberius</b><br /><small><i>Britain<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Tiberius_area">
                             <option value="0" selected="selected"></option>
@@ -3328,7 +3327,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced healers_npc">
+                    <div class="input-group top-spaced" data-npc-type="healers_npc">
                         <div class="input-group-addon healers_npc"><b>Tobatha</b><br /><small><i>Trinsic<br />Healer</i></small></div>
                         <select class="form-control select-npc-randomization" id="Tobatha_area">
                             <option value="0" selected="selected"></option>
@@ -3375,9 +3374,9 @@
                 Inns
                 ===========================
                 -->
-                <div class="npc_location_inns">
+                <div class="npc_group" data-npc-types="npc_location_inns">
                     <h3>Inns</h3>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Doris</b><br /><small><i>Minoc<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Doris_area">
                             <option value="0" selected="selected"></option>
@@ -3416,7 +3415,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Dutch / Martin</b><br /><small><i>Jhelom<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Dutch_Martin_area">
                             <option value="0" selected="selected"></option>
@@ -3455,7 +3454,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Gideon</b><br /><small><i>Skara Brae<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Gideon_area">
                             <option value="0" selected="selected"></option>
@@ -3494,7 +3493,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Marta</b><br /><small><i>Skara Brae<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Marta_area">
                             <option value="0" selected="selected"></option>
@@ -3533,7 +3532,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Petroph</b><br /><small><i>Buccaneer's Den<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Petroph_area">
                             <option value="0" selected="selected"></option>
@@ -3572,7 +3571,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Peyton</b><br /><small><i>Britain<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Peyton_area">
                             <option value="0" selected="selected"></option>
@@ -3611,7 +3610,7 @@
                             <option value="12">Tavern</option>
                         </select>
                     </div>
-                    <div class="input-group top-spaced inns_npc">
+                    <div class="input-group top-spaced" data-npc-type="inns_npc">
                         <div class="input-group-addon inns_npc"><b>Timothy</b><br /><small><i>Paws<br />Innkeeper</i></small></div>
                         <select class="form-control select-npc-randomization" id="Timothy_area">
                             <option value="0" selected="selected"></option>
