@@ -226,6 +226,7 @@
 			<div><label title="Spellbook can be found when randomized and will be in your inventory if not randomized."><input type="checkbox" id="tracker_item_spellbook" data-provides="spellbook" autocomplete="off"> Spellbook 📔</label></div>
 			<div><label title="Requires: Spellbook&#013Spell bought from Xiao in Moonglow or in a random location if randomized."><input type="checkbox" id="tracker_item_dispelfield" data-provides="dispelfield" autocomplete="off"> Spell - Dispel Field 🔥</label></div>
 			<div><label title="Requires: Spellbook&#013Spell bought from Horance in Skara Brae or in a random location if randomized."><input type="checkbox" id="tracker_item_unlock" data-provides="unlock" autocomplete="off"> Spell - Unlock 🔓</label></div>
+			<div><label title="Found item shown to Lord Whitsaber for the map quest."><input type="checkbox" id="tracker_item_dragonegg" data-provides="dragonegg" autocomplete="off"> Dragon Egg 🥚</label></div>
 		</div>
 		<div class="progressionitem_group">
 			<div><label title="Found item used to cleanse the Shrine of Compassion and get the trapped item from the Shrine."><input type="checkbox" id="tracker_item_runecompassion" data-provides="runecompassion" autocomplete="off"> Rune of Compassion ❤️</label></div>
@@ -598,7 +599,7 @@
 				<div class="item_location" data-item-location-type="virtuetown"><label title="From the moongate, enter town to the north and the chest is in the center of town on a pedestal"><input type="checkbox" id="check_trinsic_towncener" autocomplete="off">Town Center Chest</label></div>
 				<div class="item_location" data-item-location-type="virtuetown"><label title="From the moongate, there is a small house just east that has the chest. This house is just south out of the town gates."><input type="checkbox" id="check_trinsic_southouse" autocomplete="off">South House Chest</label></div>
 				<div class="item_location" data-item-location-type="treasuremap"><label data-requires="guildbelt" title="Requires: Guild Belt&#013Arturos sleeps outside in the camp just north of Trinsic north gate. He will trade an item for some gold. You will need to have gotten the keyword MAP from Homer who is found in the tavern in Buccaneer's Den. They will need the keyword TOME enabled which you can learn after talking with Nystful in Castle Britannia, and then Mariah in the Lycaeum in Moonglow."><input type="checkbox" id="check_trinsic_arturos" autocomplete="off">Pocket of Arturos 🔗</label></div>
-				<div class="item_location" data-item-location-type="treasuremap"><label data-requires="guildbelt" title="Requires: Guild Belt&#013Requires: Dragon Egg&#013Lord Whitsaber is located on the streets of Trinsic. He will give you an item after you have given a Dragon Egg to the cook Sandy in the town tavern. You will need to have gotten the keyword MAP from Homer who is found in the tavern in Buccaneer's Den. They will need the keyword TOME enabled which you can learn after talking with Nystful in Castle Britannia, and then Mariah in the Lycaeum in Moonglow."><input type="checkbox" id="check_trinsic_lordwhitsaber" autocomplete="off">Pocket of Lord Whitsaber 🔗</label></div>
+				<div class="item_location" data-item-location-type="treasuremap"><label data-requires="guildbelt dragonegg" title="Requires: Guild Belt&#013Requires: Dragon Egg&#013Lord Whitsaber is located on the streets of Trinsic. He will give you an item after you have given a Dragon Egg to the cook Sandy in the town tavern. You will need to have gotten the keyword MAP from Homer who is found in the tavern in Buccaneer's Den. They will need the keyword TOME enabled which you can learn after talking with Nystful in Castle Britannia, and then Mariah in the Lycaeum in Moonglow."><input type="checkbox" id="check_trinsic_lordwhitsaber" autocomplete="off">Pocket of Lord Whitsaber 🔗🥚</label></div>
 				<div class="item_location" data-item-location-type="joinablepartymembers" data-item-advanced-location="dupre"><label title="From the moongate, walk east and north into town. Dupre when not in the party can be found in the tavern."><input type="checkbox" id="check_trinsic_dupre" autocomplete="off">Inventory of Dupre</label></div>
 			</div>
 		</div>
@@ -641,7 +642,7 @@
 			</div>
 			<div class="hint_group">
 				<h4 class="location_title">Gargoyle Lands</h4>
-				<div class="hint_location"><input type="checkbox" id="hint_gargoylelands_tombofkingsentrance" autocomplete="off"><label for="hint_gargoylelands_tombofkingsentrance" title="Requires: Gargish Text&#013Check the stone triangle in front of the entrance to the King of Tombs for a hint." data-default-text="Tomb of Kings Entrance 📜">Tomb of Kings Entrance 📜</label></div>
+				<div class="hint_location"><input type="checkbox" id="hint_gargoylelands_tombofkingsentrance" autocomplete="off"><label data-requires="gargishtext" for="hint_gargoylelands_tombofkingsentrance" title="Requires: Gargish Text&#013Check the stone triangle in front of the entrance to the King of Tombs for a hint." data-default-text="Tomb of Kings Entrance 📜">Tomb of Kings Entrance 📜</label></div>
 			</div>
 			<div class="hint_group">
 				<h4 class="location_title">Minoc</h4>
@@ -649,7 +650,7 @@
 			</div>
 			<div class="hint_group">
 				<h4 class="location_title">Moonglow</h4>
-				<div class="hint_location"><input type="checkbox" id="hint_lycaeum_book" autocomplete="off"><label for="hint_lycaeum_book" title="Requires: Spell - Dispel Field&#013Go north and enter the lycaeum then go into the lower levels to find the book Dilzals Almanac of Good Advice to get a hint inside the book." data-default-text="Lycaeum Book 🔥">Lycaeum Book 🔥</label></div>
+				<div class="hint_location"><input type="checkbox" id="hint_lycaeum_book" autocomplete="off"><label data-requires="spellbook dispelfield" for="hint_lycaeum_book" title="Requires: Spell - Dispel Field&#013Go north and enter the lycaeum then go into the lower levels to find the book Dilzals Almanac of Good Advice to get a hint inside the book." data-default-text="Lycaeum Book 🔥">Lycaeum Book 🔥</label></div>
 				<div class="hint_location"><input type="checkbox" id="hint_moonglow_tavernharpsichord" autocomplete="off"><label for="hint_moonglow_tavernharpsichord" title="Go SE into the tavern and search the harpsichord for a scroll.">Tavern Harpsichord</label></div>
 				<div class="hint_location"><input type="checkbox" id="hint_moonglow_tomb" autocomplete="off"><label for="hint_moonglow_tomb" title="Go SE into the tavern and then go down into the tomb from the secret entrance in the storage area. The scroll is in front of the tomb on the second lower floor where the item is." data-default-text="Tomb under the Tavern">Tomb under the Tavern</label></div>
 			</div>

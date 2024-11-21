@@ -93,7 +93,7 @@ function initEnableAdvancedLocationCheckbox() {
 function initProgressionItemCheckboxes() {
 	const dataProvides = document.querySelectorAll('[data-provides]')
 	for (checkbox of dataProvides) {
-		checkbox.addEventListener('click', toggleItemsOnClick);
+		checkbox.addEventListener('click', toggleItemProvidedOnClick);
 		checkbox.addEventListener('click', setStreamViewCheckboxStatusOnClick);
 		checkbox.dispatchEvent(new Event('click'));
 	};
@@ -147,8 +147,8 @@ function toggleAdvancedLocationSelectionOnClick(e) {
 	toggleAdvancedLocationSelection(e.target);
 }
 
-function toggleItemsOnClick(e) {
-	toggleItems(e.target);
+function toggleItemProvidedOnClick(e) {
+	toggleItemProvided(e.target);
 }
 
 function toggleSectionOnClick(e) {
@@ -299,9 +299,9 @@ function toggleAdvancedLocationSelection(e) {
 	}
 }
 
-function toggleItems(e) {
+function toggleItemProvided(e) {
 	const itemProvides = e.dataset.provides;
-	const locationList = document.querySelectorAll(`.item_location label[data-requires~="${itemProvides}"]`);
+	const locationList = document.querySelectorAll(`label[data-requires~="${itemProvides}"]`);
 
 	for (loc of locationList) {
 		loc.dataset.available = e.checked && checkRequirements(loc);
