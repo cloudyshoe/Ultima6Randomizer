@@ -102,8 +102,11 @@ function initProgressionItemCheckboxes() {
 function initNotesArea() {
 	const notesArea = document.getElementById('notes_area');
 	notesArea.addEventListener('input', setLocalNotesOnChange);
+	notesArea.addEventListener('mouseup', setLocalNotesHeightOnMouseUp);
 	const notesContent = localNotes(notesArea);
 	if (notesContent) { notesArea.value = notesContent; }
+	const notesSize = localNotesHeight(notesArea);
+	if (notesSize) { notesArea.style.height = notesSize; }
 }
 
 function initResetButton() {
@@ -157,6 +160,10 @@ function toggleSectionOnClick(e) {
 
 function setLocalNotesOnChange(e) {
 	setLocalNotes(e.target);
+}
+
+function setLocalNotesHeightOnMouseUp(e) {
+	setLocalNotesHeight(e.target);
 }
 
 function setLocalCheckboxStatusOnClick(e) {
@@ -396,10 +403,17 @@ function setLocalNotes(e) {
 	localStorage.setItem(KEY_PREFIX+e.id, e.value);
 }
 
+function setLocalNotesHeight(e) {
+	localStorage.setItem(KEY_PREFIX+e.id+"_height", e.style.height);
+}
+
 function localNotes(e) {
 	return localStorage.getItem(KEY_PREFIX+e.id);
 }
 
+function localNotesHeight(e) {
+	return localStorage.getItem(KEY_PREFIX+e.id+"_height");
+}
 
 function setLocalCheckboxStatus(e) {
 	localStorage.setItem(KEY_PREFIX+e.id, e.checked);	
