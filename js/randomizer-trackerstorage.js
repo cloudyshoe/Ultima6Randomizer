@@ -1,72 +1,3 @@
-function saveToLocalStorage() {
-	if (confirm('Do you want to save the current tracker state?\nThis will overwrite any previously saved tracker states.') == true) {
-
-		if (localStorage.getItem(KEY_PREFIX)) {
-			localStorage.removeItem(KEY_PREFIX);
-		}
-
-		const localEntries = Object.entries(localStorage);
-		const toLocal = {};
-		toLocal[KEY_PREFIX] = {};
-
-		for ([key,value] of localEntries) {
-			if (key.startsWith(KEY_PREFIX)) toLocal[KEY_PREFIX][key] = value;
-		}
-
-		localStorage.setItem(KEY_PREFIX, JSON.stringify(toLocal));
-	}
-}
-
-
-function restoreFromLocalStorage() {
-	if (localStorage.getItem(KEY_PREFIX)) {
-		if (confirm('Do you want to restore the saved tracker state?\nThis will overwrite the existing state.') == true) {
-			let localEntries = Object.entries(localStorage);
-			for ([key,value] of localEntries) {
-				if (key.startsWith(KEY_PREFIX)) {
-					localStorage.removeItem(key);
-				}
-			}
-
-			let localJSON = JSON.parse(localStorage.getItem(KEY_PREFIX));
-
-			localEntries = Object.entries(localJSON[KEY_PREFIX]);
-			for ([key,value] of localEntries) {
-				localStorage.setItem(key, value);
-			}
-			location.reload();
-		}
-	} else {
-		alert('No saved data to restore.');
-	}
-}
-
-
-function clearLocalStorage() {
-	if (localStorage.getItem(KEY_PREFIX) &&
-		confirm('Do you want to clear the saved tracker state?\nThis will not affect the current tracker state.') == true) {
-		localStorage.removeItem(KEY_PREFIX);
-	}
-}
-
-function toggleStorageOptions() {
-	if (document.querySelector('.local_storage').style.display == 'none') {
-		document.getElementById('toggle_local_storage').textContent = '[Hide Save Options]';
-		document.getElementById('toggle_local_storage').title = 'Hide options to Save/Load/Restore tracker state';
-		var buttons = document.getElementsByClassName('local_storage');
-		for (var i = 0; i < buttons.length; i++) {
-			buttons[i].style.display = '';
-		}
-	} else {
-		document.getElementById('toggle_local_storage').textContent = '[Show Save Options]';
-		document.getElementById('toggle_local_storage').title = 'Show options to Save/Load/Restore tracker state';
-		var buttons = document.getElementsByClassName('local_storage');
-		for (var i = 0; i < buttons.length; i++) {
-			buttons[i].style.display = 'none';
-		}
-	}
-}
-
 function saveToFile() {
 	const toFile = {};
 	const localEntries = Object.entries(localStorage);
@@ -76,8 +7,6 @@ function saveToFile() {
 			toFile[key] = value;
 		}
 	}
-
-	console.log(toFile);
 
 	const jsonBlob = new Blob([JSON.stringify(toFile)], { type:"application/json;charset=utf-8" });
 	const url = window.URL.createObjectURL(jsonBlob);
